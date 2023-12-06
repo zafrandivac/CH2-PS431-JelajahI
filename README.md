@@ -1,5 +1,4 @@
 # JelajahI: Cultural Travel Recommender Application
-***Building Image Recognizer & Classifier Using CNN***
 
 [Bangkit H2 2023 Product Capstone Project - Tourism, Cultural, and Hospitality]
 
