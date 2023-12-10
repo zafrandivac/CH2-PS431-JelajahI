@@ -11,6 +11,6 @@ app.use(router);
 
 startdb();
 
-app.listen(5000, () => console.log("Server Berjalan di Port 5000"));
+app.listen(process.env.WEBAPP_SERVER_PORT || 8080, () => console.log(`Server Berjalan di Port ${process.env.WEBAPP_SERVER_PORT}`));
 
 module.exports = { app };
