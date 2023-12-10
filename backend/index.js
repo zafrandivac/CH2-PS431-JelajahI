@@ -13,6 +13,13 @@ app.use(router);
 
 startdb();
 
-app.listen(process.env.PORT, () => console.log(`Server Berjalan di Port ${process.env.PORT}`));
+app.listen(process.env.PORT, (error) => {
+    if (error) {
+        console.log("Error occured!");
+        console.log(`Error: ${error}`);
+    } else {
+        console.log(`Server Berjalan di Port ${process.env.PORT}`);
+    }
+});
 
 module.exports = { app };
