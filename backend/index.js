@@ -20,4 +20,4 @@ app.use(router);
 
 app.listen(5000, () => console.log("Server Berjalan di Port 5000"));
 
-module.exports = { app };
+export default app;
