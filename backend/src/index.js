@@ -13,6 +13,6 @@ app.use(router);
 
 startdb();
 
-app.listen(process.env.WEBAPP_SERVER_PORT || 8080, () => console.log(`Server Berjalan di Port ${process.env.WEBAPP_SERVER_PORT}`));
+app.listen(process.env.WEBAPP_SERVER_PORT, () => console.log(`Server Berjalan di Port ${process.env.WEBAPP_SERVER_PORT}`));
 
 module.exports = { app };
