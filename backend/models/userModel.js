@@ -1,23 +1,23 @@
-import { Sequelize } from "sequelize";
-import db from "../config/database.js";
+const { Sequelize } = require('sequelize');
+const { db } = require("../config/database");
 
 const { DataTypes } = Sequelize;
 
 const Users = db.define('users', {
-    name:{
+    name: {
         type: DataTypes.STRING
     },
-    email:{
+    email: {
         type: DataTypes.STRING
     },
-    password:{
+    password: {
         type: DataTypes.STRING
     },
-    refresh_token:{
+    refresh_token: {
         type: DataTypes.TEXT
     }
-},{
-    freezeTableName:true
+}, {
+    freezeTableName: true
 });
 
-export default Users;
+module.exports = { Users };

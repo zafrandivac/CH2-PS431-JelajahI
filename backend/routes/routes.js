@@ -1,16 +1,16 @@
-import express from "express";
-import { getUsers, Register, Login } from "../controller/Users.js";
-import { verifyToken } from "../middleware/verifyToken.js";
+const express = require("express");
+const { getUsers, Register, Login } = require("../controller/Users");
+const { verifyToken } = require("../middleware/verifyToken");
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
     res.status(200).json({
-        message: "Welcome Jingkontod"
+        message: "Welcome to JelajahI, Happy Traveling"
     })
 });
-router.get('/users', verifyToken, getUsers);
+router.get('/users', getUsers);
 router.post('/users', Register);
 router.post('/login', Login);
 
-export default router;
+module.exports = { router };
