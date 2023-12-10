@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import db from "./config/database.js";
-import router from "./routes/index.js";
+import router from "./routes/routes.js";
 
 dotenv.config();
 const app = express();
@@ -18,4 +18,6 @@ app.use(express.json());
 app.use(router);
 
 
-app.listen(5000, ()=> console.log("Server Berjalan di Port 5000"));
+app.listen(5000, () => console.log("Server Berjalan di Port 5000"));
+
+export default app;
