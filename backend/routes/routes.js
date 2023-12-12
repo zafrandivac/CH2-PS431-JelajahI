@@ -1,9 +1,11 @@
 const express = require("express");
+const multer = require("multer");
 const { getUsers, Register, Login } = require("../controller/Users");
 const { verifyToken } = require("../middleware/verifyToken");
 
 const router = express.Router();
 const middle = express.urlencoded({ extended: false });
+const upload = multer();
 
 router.get('/', async (req, res) => {
     res.status(200).json({
@@ -12,6 +14,6 @@ router.get('/', async (req, res) => {
 });
 router.get('/users', getUsers);
 router.post('/register', Register);
-router.post('/login', middle, Login);
+router.post('/login', upload.none(), Login);
 
 module.exports = { router };
