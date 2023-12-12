@@ -3,6 +3,7 @@ const { getUsers, Register, Login } = require("../controller/Users");
 const { verifyToken } = require("../middleware/verifyToken");
 
 const router = express.Router();
+const middle = express.urlencoded({ extended: false });
 
 router.get('/', async (req, res) => {
     res.status(200).json({
@@ -10,7 +11,7 @@ router.get('/', async (req, res) => {
     })
 });
 router.get('/users', getUsers);
-router.post('/users', Register);
-router.post('/login', Login);
+router.post('/register', Register);
+router.post('/login', middle, Login);
 
 module.exports = { router };
