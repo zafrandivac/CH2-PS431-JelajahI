@@ -1,6 +1,7 @@
 const express = require("express");
 const multer = require("multer");
-const { getUsers, Register, Login } = require("../controller/Users");
+const { getUsers, Register, Login, editUser, deleteUser } = require("../controller/Users");
+const { addPost, getAllPost } = require("../controller/Community");
 const { verifyToken } = require("../middleware/verifyToken");
 
 const router = express.Router();
@@ -15,5 +16,9 @@ router.get('/', async (req, res) => {
 router.get('/users', getUsers);
 router.post('/register', Register);
 router.post('/login', upload.none(), Login);
+router.post('/edit', upload.none(), editUser);
+router.delete('/delete', deleteUser);
+router.post('/newpost', upload.none(), addPost);
+router.get('/allpost', getAllPost);
 
 module.exports = { router };

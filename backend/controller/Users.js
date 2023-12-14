@@ -1,6 +1,7 @@
 const { Users } = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { cast } = require("sequelize");
 
 const getUsers = async (req, res) => {
     try {
@@ -78,4 +79,32 @@ const Login = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, Register, Login }
+const editUser = async (req, res) => {
+    const { id, name } = req.body;
+    try {
+        const user = await Users.update({ name: name }, {
+            where: {
+                id: id
+            }
+        });
+        res.json({ msg: "Profile sudah di-update" })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const deleteUser = async (req, res) => {
+    const { name } = req.body;
+    try {
+        const user = await Users.destroy({
+            where: {
+                name: name
+            }
+        });
+        res.json({ msg: "User sudah berhasil dihapus" })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+module.exports = { getUsers, Register, Login, editUser, deleteUser }
