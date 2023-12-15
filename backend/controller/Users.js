@@ -72,7 +72,7 @@ const Login = async (req, res) => {
                 id: userId
             }
         });
-        if (match) return res.json(
+        if (match) return res.status(200).json(
             {
                 error: false,
                 msg: "Login Berhasil Dilakukan",
@@ -83,7 +83,7 @@ const Login = async (req, res) => {
                 }
             });
         else {
-            if (!match) return res.json(
+            if (!match) return res.status(400).json(
                 { error: true },
                 { msg: "Password tidak sesuai" }
             )
