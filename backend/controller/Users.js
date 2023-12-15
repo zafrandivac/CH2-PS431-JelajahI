@@ -54,26 +54,35 @@ const Register = async (req, res) => {
 
 const Login = async (req, res) => {
     try {
-        const user = await Users.findAll({
+        const user = await Users.findOne({
             where: {
                 email: req.body.email
             }
         });
-        const match = await bcrypt.compare(req.body.password, user[0].password);
-        // if (!match) return res.status(400).json({ msg: "Password tidak sesuai" });
 
-        const userId = user[0].id;
-        const name = user[0].name;
-        const email = user[0].email;
-        const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
-        const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
-        await Users.update({ refresh_token: refreshToken }, {
-            where: {
-                id: userId
-            }
-        });
-        if (match) return res.status(200).json(
-            {
+        // Check if the user with the provided email exists
+        if (!user) {
+            return res.status(404).json({ msg: "Email tidak ditemukan" });
+        }
+
+        // Compare the password
+        const match = await bcrypt.compare(req.body.password, user.password);
+
+        if (match) {
+            const userId = user.id;
+            const name = user.name;
+            const email = user.email;
+            const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
+            const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+
+            // Update the refresh token in the database
+            await Users.update({ refresh_token: refreshToken }, {
+                where: {
+                    id: userId
+                }
+            });
+
+            return res.status(200).json({
                 error: false,
                 msg: "Login Berhasil Dilakukan",
                 loginResult: {
@@ -82,15 +91,13 @@ const Login = async (req, res) => {
                     accessToken
                 }
             });
-        else {
-            if (!match) return res.status(400).json(
-                { error: true },
-                { msg: "Password tidak sesuai" }
-            )
+        } else {
+            // Incorrect password
+            return res.status(400).json({ error: true, msg: "Password tidak sesuai" });
         }
-
     } catch (error) {
-        res.status(404).json({ msg: "Email tidak ditemukan" });
+        console.log(error);
+        res.status(500).json({ msg: "Internal Server Error" });
     }
 }
 
