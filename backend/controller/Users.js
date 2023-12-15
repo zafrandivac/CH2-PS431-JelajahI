@@ -68,15 +68,13 @@ const Login = async (req, res) => {
         const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
         const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
         await Users.update({
-            id: userId,
-            name: name,
             refresh_token: refreshToken
         }, {
             where: {
                 id: userId
             }
         });
-        res.json({ accessToken, msg: "Login Berhasil Dilakukan" });
+        res.json({ userId, name, accessToken, msg: "Login Berhasil Dilakukan" });
 
     } catch (error) {
         res.status(404).json({ msg: "Email tidak ditemukan" });
