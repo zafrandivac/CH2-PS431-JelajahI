@@ -96,8 +96,10 @@ const Login = async (req, res) => {
             return res.status(400).json({ error: true, msg: "Password tidak sesuai" });
         }
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: "Internal Server Error" });
+        console.error(error); // Log the error for debugging purposes
+
+        // Return a proper error response
+        return res.status(500).json({ msg: "Internal Server Error", error: error.message, email });
     }
 }
 
