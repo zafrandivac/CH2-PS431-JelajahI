@@ -1,7 +1,6 @@
-const { Users } = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { cast } = require("sequelize");
+const { Users, sequelize } = require('../models/userModel');
 
 const getUsers = async (req, res) => {
     try {
@@ -54,25 +53,30 @@ const Register = async (req, res) => {
 
 const Login = async (req, res) => {
     try {
-        const user = await Users.findAll({
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ error: true, msg: "Email and password are required" });
+        }
+
+        const user = await Users.findOne({
             where: {
-                email: req.body.email
+                email: { [sequelize.Op.iLike]: email }
             }
         });
 
-        if (user.length === 0) {
-            return res.status(404).json({ error: true, msg: "Email tidak ditemukan" });
+        if (!user) {
+            return res.status(404).json({ error: true, msg: "Email not found" });
         }
 
-        const match = await bcrypt.compare(req.body.password, user[0].password);
+        const match = await bcrypt.compare(password, user.password);
 
         if (match) {
-            const userId = user[0].id;
-            const name = user[0].name;
-            const email = user[0].email;
+            const userId = user.id;
+            const name = user.name;
             const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
             const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
-            
+
             await Users.update({ refresh_token: refreshToken }, {
                 where: {
                     id: userId
@@ -81,7 +85,7 @@ const Login = async (req, res) => {
 
             return res.status(200).json({
                 error: false,
-                msg: "Login Berhasil Dilakukan",
+                msg: "Login successful",
                 loginResult: {
                     userId,
                     name,
@@ -89,17 +93,16 @@ const Login = async (req, res) => {
                 }
             });
         } else {
-            // Incorrect password
             return res.status(400).json({
                 error: true,
-                msg: "Password tidak sesuai"
+                msg: "Incorrect password"
             });
         }
     } catch (error) {
-    console.error("Login Error:", error);
-    res.status(500).json({ error: true, msg: "Internal Server Error: " + error.message });
+        console.error("Login Error:", error);
+        res.status(500).json({ error: true, msg: "Internal Server Error: " + error.message });
     }
-};
+});
 
 const editUser = async (req, res) => {
     const { id, name } = req.body;
