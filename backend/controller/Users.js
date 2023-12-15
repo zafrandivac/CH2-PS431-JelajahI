@@ -59,21 +59,27 @@ const Login = async (req, res) => {
                 email: req.body.email
             }
         });
-        const match = await bcrypt.compare(req.body.password, user[0].password);
-        // if (!match) return res.status(400).json({ msg: "Password tidak sesuai" });
 
-        const userId = user[0].id;
-        const name = user[0].name;
-        const email = user[0].email;
-        const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
-        const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
-        await Users.update({ refresh_token: refreshToken }, {
-            where: {
-                id: userId
-            }
-        });
-        if (match) return res.status(200).json(
-            {
+        if (user.length === 0) {
+            return res.status(404).json({ error: true, msg: "Email tidak ditemukan" });
+        }
+
+        const match = await bcrypt.compare(req.body.password, user[0].password);
+
+        if (match) {
+            const userId = user[0].id;
+            const name = user[0].name;
+            const email = user[0].email;
+            const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
+            const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+            
+            await Users.update({ refresh_token: refreshToken }, {
+                where: {
+                    id: userId
+                }
+            });
+
+            return res.status(200).json({
                 error: false,
                 msg: "Login Berhasil Dilakukan",
                 loginResult: {
@@ -82,17 +88,18 @@ const Login = async (req, res) => {
                     accessToken
                 }
             });
-        else {
-            if (!match) return res.status(400).json(
-                { error: true },
-                { msg: "Password tidak sesuai" }
-            )
+        } else {
+            // Incorrect password
+            return res.status(400).json({
+                error: true,
+                msg: "Password tidak sesuai"
+            });
         }
-
     } catch (error) {
-        res.status(404).json({ msg: "Email tidak ditemukan" });
+        console.error("Login Error:", error);
+        res.status(500).json({ error: true, msg: "Internal Server Error" });
     }
-}
+};
 
 const editUser = async (req, res) => {
     const { id, name } = req.body;
