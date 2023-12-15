@@ -1,7 +1,11 @@
-const { Users } = require("../models/userModel");
+const express = require('express');
+const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { cast } = require("sequelize");
+const { Users, sequelize } = require('../models/userModel'); 
+
+const router = express.Router();
+router.use(bodyParser.urlencoded({ extended: true }));
 
 const getUsers = async (req, res) => {
     try {
