@@ -1,6 +1,7 @@
+const { Users } = require("../models/userModel");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { Users, sequelize } = require('../models/userModel');
+const { cast } = require("sequelize");
 
 const getUsers = async (req, res) => {
     try {
@@ -102,7 +103,7 @@ const Login = async (req, res) => {
         console.error("Login Error:", error);
         res.status(500).json({ error: true, msg: "Internal Server Error: " + error.message });
     }
-});
+};
 
 const editUser = async (req, res) => {
     const { id, name } = req.body;
