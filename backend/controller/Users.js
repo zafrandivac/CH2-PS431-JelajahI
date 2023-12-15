@@ -60,21 +60,34 @@ const Login = async (req, res) => {
             }
         });
         const match = await bcrypt.compare(req.body.password, user[0].password);
-        if (!match) return res.status(400).json({ msg: "Password tidak sesuai" });
+        // if (!match) return res.status(400).json({ msg: "Password tidak sesuai" });
 
         const userId = user[0].id;
         const name = user[0].name;
         const email = user[0].email;
         const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
         const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
-        await Users.update({
-            refresh_token: refreshToken
-        }, {
+        await Users.update({ refresh_token: refreshToken }, {
             where: {
                 id: userId
             }
         });
-        res.json({ userId, name, accessToken, msg: "Login Berhasil Dilakukan" });
+        if (match) return res.json(
+            {
+                error: false,
+                msg: "Login Berhasil Dilakukan",
+                loginResult: {
+                    userId,
+                    name,
+                    accessToken
+                }
+            });
+        else {
+            if (!match) return res.json(
+                { error: true },
+                { msg: "Password tidak sesuai" }
+            )
+        }
 
     } catch (error) {
         res.status(404).json({ msg: "Email tidak ditemukan" });
