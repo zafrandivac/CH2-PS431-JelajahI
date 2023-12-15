@@ -25,4 +25,35 @@ const getAllPost = async (req, res) => {
     }
 }
 
-module.exports = { addPost, getAllPost }
+const editPost = async (req, res) => {
+    const { id, description, place_name } = req.body;
+    try {
+        const community = await Community.update({
+            placeName: place_name,
+            description: description,
+        }, {
+            where: {
+                id: id
+            }
+        });
+        res.json({ msg: "Post anda berhasil diubah" })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const deletePost = async (req, res) => {
+    const { id } = req.body;
+    try {
+        const community = await Community.destroy({
+            where: {
+                id: id
+            }
+        });
+        res.json({ msg: "Post anda berhasil dihapus" })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = { addPost, getAllPost, editPost, deletePost }
