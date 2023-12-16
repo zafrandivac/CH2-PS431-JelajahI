@@ -60,7 +60,10 @@ const Login = async (req, res) => {
             }
         });
         const match = await bcrypt.compare(req.body.password, user[0].password);
-        // if (!match) return res.status(400).json({ msg: "Password tidak sesuai" });
+        if (!match) return res.status(400).json({
+            error: true,
+            msg: "Password tidak sesuai"
+        });
 
         const userId = user[0].id;
         const name = user[0].name;
@@ -72,7 +75,7 @@ const Login = async (req, res) => {
                 id: userId
             }
         });
-        if (match) return res.status(200).json(
+        return res.json(
             {
                 error: false,
                 msg: "Login Berhasil Dilakukan",
@@ -82,12 +85,6 @@ const Login = async (req, res) => {
                     accessToken
                 }
             });
-        else {
-            if (!match) return res.status(400).json(
-                { error: true },
-                { msg: "Password tidak sesuai" }
-            )
-        }
 
     } catch (error) {
         res.status(404).json({ msg: "Email tidak ditemukan" });
