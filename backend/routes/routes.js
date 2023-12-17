@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const { getUsers, Register, Login, editUser, deleteUser } = require("../controller/Users");
+const { getUsers, Register, Login, editUser, deleteUser, getData } = require("../controller/Users");
 const { addPost, getAllPost, deletePost, editPost } = require("../controller/Community");
 const { verifyToken } = require("../middleware/verifyToken");
 
@@ -26,5 +26,8 @@ router.post('/newpost', upload.none(), addPost);
 router.get('/allpost', getAllPost);
 router.post('/editpost', upload.none(), editPost);
 router.delete('/deletepost', deletePost);
+
+// Route untuk community
+router.get('/getExplore', getData);
 
 module.exports = { router };
