@@ -20,8 +20,6 @@ const Register = async (req, res) => {
     const salt = await bcrypt.genSalt();
     const hashPass = await bcrypt.hash(password, salt);
     const emailExists = await Users.findOne({ where: { email: req.body.email } });
-
-
     if (!password) {
         return res.status(400).json({ msg: "Password tidak boleh kosong" });
     } else {
@@ -37,8 +35,6 @@ const Register = async (req, res) => {
             }
         }
     }
-
-
     try {
         await Users.create({
             name: name,
