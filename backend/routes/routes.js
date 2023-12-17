@@ -28,6 +28,6 @@ router.post('/editpost', upload.none(), editPost);
 router.delete('/deletepost', deletePost);
 
 // Route untuk community
-router.get('/getExplore', getData);
+router.post('/getExplore', getData);
 
 module.exports = { router };
