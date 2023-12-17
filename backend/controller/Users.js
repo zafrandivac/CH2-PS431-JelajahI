@@ -15,7 +15,7 @@ const getUsers = async (req, res) => {
 }
 
 const Register = async (req, res) => {
-    const { name, email, password, confPass } = req.body;
+    const { name, email, password } = req.body;
     const salt = await bcrypt.genSalt();
     const hashPass = await bcrypt.hash(password, salt);
     const emailExists = await Users.findOne({ where: { email: req.body.email } });
@@ -59,7 +59,10 @@ const Login = async (req, res) => {
             }
         });
         const match = await bcrypt.compare(req.body.password, user[0].password);
-        // if (!match) return res.status(400).json({ msg: "Password tidak sesuai" });
+        if (!match) return res.status(400).json({
+            error: true,
+            msg: "Password tidak sesuai"
+        });
 
         const userId = user[0].id;
         const name = user[0].name;
@@ -81,15 +84,9 @@ const Login = async (req, res) => {
                     accessToken
                 }
             });
-        else {
-            if (!match) return res.status(400).json(
-                { error: true },
-                { msg: "Password tidak sesuai" }
-            )
-        }
-
     } catch (error) {
-        res.status(404).json({ msg: "Email tidak ditemukan" });
+        console.error(error);  // Log the error for debugging
+        res.status(500).json({ error: true, msg: 'Internal server error', details: error.message });
     }
 }
 
