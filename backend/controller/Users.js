@@ -20,25 +20,23 @@ const Register = async (req, res) => {
     const hashPass = await bcrypt.hash(password, salt);
     const emailExists = await Users.findOne({ where: { email: req.body.email } });
 
-    if (password !== confPass) {
-        return res.status(400).json({ msg: "Password dan Confirm Password tidak sesuai" });
+
+    if (!password) {
+        return res.status(400).json({ msg: "Password tidak boleh kosong" });
     } else {
-        if (!password) {
-            return res.status(400).json({ msg: "Password tidak boleh kosong" });
+        if (!email) {
+            return res.status(400).json({ msg: "Email tidak boleh kosong" });
         } else {
-            if (!email) {
-                return res.status(400).json({ msg: "Email tidak boleh kosong" });
+            if (!name) {
+                return res.status(400).json({ msg: "Nama tidak boleh kosong" });
             } else {
-                if (!name) {
-                    return res.status(400).json({ msg: "Nama tidak boleh kosong" });
-                } else {
-                    if (emailExists) {
-                        return res.status(400).json({ msg: "Email Sudah Terdaftar" });
-                    }
+                if (emailExists) {
+                    return res.status(400).json({ msg: "Email Sudah Terdaftar" });
                 }
             }
         }
     }
+
 
     try {
         await Users.create({
