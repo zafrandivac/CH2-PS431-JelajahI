@@ -87,16 +87,41 @@ const Login = async (req, res) => {
 }
 
 const editUser = async (req, res) => {
-    const { id, name } = req.body;
     try {
-        const user = await Users.update({ name: name }, {
-            where: {
-                id: id
-            }
+        const { email, currentPassword, newPassword, username } = req.body;
+        const findUser = await Users.findOne({
+            where: { email: email }
         });
-        res.json({ msg: "Profile sudah di-update" })
+
+        if (!findUser) {
+            return res.status(404).json({ msg: "Email doesn't exist" });
+        } else {
+            // Compare current password
+            const match = await bcrypt.compare(currentPassword, findUser.password);
+
+            if (!match) {
+                return res.status(400).json({ msg: "Password tidak sesuai" });
+            }
+
+            // Hash the new password
+            const salt = await bcrypt.genSalt();
+            const hashNewPass = await bcrypt.hash(newPassword, salt);
+
+            // Update user with new password
+            const updateUser = await Users.update(
+                { name: username, password: hashNewPass },
+                { where: { email: email } }
+            );
+
+            if (updateUser[0] === 1) {
+                return res.json({ success: true, message: 'Updated successfully' });
+            } else {
+                return res.status(404).json({ success: false, message: 'Updated failed' });
+            }
+        }
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 }
 
