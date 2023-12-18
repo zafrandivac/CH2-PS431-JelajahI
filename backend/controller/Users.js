@@ -141,14 +141,10 @@ const deleteUser = async (req, res) => {
 
 const getData = async (req, res) => {
     try {
-        const { propertyName } = req.params;
-        const { radius, businessStatus } = req.query;
+        const { propertyName } = req.body;
         let apiUrl;
 
         switch (propertyName) {
-            case 'jawatengah':
-                apiUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=kerajinan_batik_di_jawa_tengah&location=-7.1395124410797495%2C110.16225311591245&radius=50000&business_status=OPERATIONAL&key=AIzaSyDikJA_zqvlFv4heu7UnWMht7j1JOTpiN8';
-                break;
             case 'batiklasem':
                 apiUrl = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=kerajinan_batik_di_daerah_Rembang&location=-6.707107734936229%2C111.3318315373741&radius=20000&business_status=OPERATIONAL&key=AIzaSyDikJA_zqvlFv4heu7UnWMht7j1JOTpiN8';
                 break;
