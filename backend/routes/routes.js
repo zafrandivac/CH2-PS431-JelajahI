@@ -22,7 +22,7 @@ router.post('/edit', upload.none(), editUser);
 router.delete('/delete', deleteUser);
 
 // Route untuk community
-router.post('/newpost', upload.none(), addPost);
+router.post('/newpost', upload.none(), upload.single('reviewPicture'), addPost);
 router.get('/allpost', getAllPost);
 router.post('/editpost', upload.none(), editPost);
 router.delete('/deletepost', deletePost);

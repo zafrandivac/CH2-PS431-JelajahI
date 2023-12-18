@@ -116,7 +116,8 @@ const deleteUser = async (req, res) => {
 
 const getData = async (req, res) => {
     try {
-        const { propertyName } = req.body;
+        const { propertyName } = req.params;
+        const { radius, businessStatus } = req.query;
         let apiUrl;
 
         switch (propertyName) {
