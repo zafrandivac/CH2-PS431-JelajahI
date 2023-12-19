@@ -33,13 +33,6 @@ router.delete('/deletepost', deletePost);
 router.post('/getExplore', getData);
 
 // Route untuk prediction model
-router.post('/batik-predictions', (req, res) => {
-    // Handle the incoming predictions from Flask
-    const predictions = req.body.predictions;
-
-    // Add your logic to process the predictions as needed
-
-    res.json({ predictions });
-});
+// router.post('/batik-predictions', predictBatik);
 
 module.exports = { router };
