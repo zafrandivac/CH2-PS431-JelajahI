@@ -1,3 +1,3 @@
 node_modules
-.env
-ch2-ps431-jelajahi-credentials.json
+/.env
+/ch2-ps431-jelajahi-credentials.json
