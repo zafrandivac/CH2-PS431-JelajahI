@@ -60,7 +60,7 @@ const Login = async (req, res) => {
             msg: "Password tidak sesuai"
         });
 
-        const userId = user[0].id;
+        const userId = user[0].id;https://github.com/zafrandivac/CH2-PS431-JelajahI/blob/main/backend/controller/Users.js
         const name = user[0].name;
         const email = user[0].email;
         const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20s' });
@@ -76,6 +76,7 @@ const Login = async (req, res) => {
                 msg: "Login Berhasil Dilakukan",
                 loginResult: {
                     userId,
+                    email,
                     name,
                     accessToken
                 }
