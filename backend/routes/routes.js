@@ -39,7 +39,7 @@ router.post('/batik-predictions', (req, res) => {
 
     // Add your logic to process the predictions as needed
 
-    res.json({ predictions, message: 'Predictions received successfully' });
+    res.json({ predictions });
 });
 
 module.exports = { router };
