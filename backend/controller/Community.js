@@ -1,14 +1,4 @@
 const { Community } = require('../models/communityModel');
-const { Storage } = require('@google-cloud/storage');
-const multer = require('multer');
-
-const storage = new Storage({
-    keyFilename: 'ch2-ps431-jelajahi-credentials.json',
-});
-
-const upload = multer({
-    storage: multer.memoryStorage(), // You can use diskStorage() if you want to save temporarily on disk
-});
 
 const addPost = async (req, res) => {
     const { description, place_name, location } = req.body;
@@ -18,25 +8,6 @@ const addPost = async (req, res) => {
             placeName: place_name,
             location: location,
         });
-
-        const file = req.file;
-
-        if (file) {
-            const bucketName = 'jelajahi';
-            const gcsFileName = `user/${Date.now()}_${file.originalname}`;
-            const fileOptions = {
-                destination: gcsFileName,
-                metadata: {
-                    contentType: file.mimetype,
-                },
-            };
-
-            await storage.bucket(bucketName).upload(file.buffer, fileOptions);
-
-            // Add the GCS URL to the community object or store it as needed
-            community.reviewPictureUrl = `https://storage.googleapis.com/${bucketName}/${gcsFileName}`;
-            await community.save();
-        }
 
         res.json({ msg: 'Community berhasil ditambahkan', community });
     } catch (error) {
