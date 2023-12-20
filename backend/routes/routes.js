@@ -37,4 +37,8 @@ router.post("/upload", uploadImage);
 router.get("/files", getListImages);
 router.get("/files/:name", download);
 
+// Route untuk model
+router.post('/predict', prediction);
+
+
 module.exports = { router };
