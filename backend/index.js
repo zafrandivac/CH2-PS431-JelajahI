@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require('cors');
 const { startdb } = require("./config/database");
 const { router } = require("./routes/routes");
-const {imgBatik} = require("./models/imgBatik")
+// const {imgBatik} = require("./models/imgBatik")
 
 const app = express();
 

@@ -4,13 +4,13 @@ const { Storage } = require('@google-cloud/storage');
 const uuid = require('uuid');
 
 const storage = new Storage({
-    projectId: process.env.GCLOUD_PROJECT,
-    private_key: process.env.GCLOUD_PRIVATE_KEY
-    }
-  );
+  projectId: process.env.GCLOUD_PROJECT,
+  private_key: process.env.GCLOUD_PRIVATE_KEY
+}
+);
 
-  const bucket = storage.bucket(process.env.GCS_BUCKET);
-  const unique = uuid.v1;
+const bucket = storage.bucket(process.env.GCS_BUCKET);
+const unique = uuid.v1;
 
 const prediction = async (req, res) => {
   try {
@@ -62,5 +62,5 @@ const prediction = async (req, res) => {
 };
 
 module.exports = {
-    prediction
+  prediction
 };

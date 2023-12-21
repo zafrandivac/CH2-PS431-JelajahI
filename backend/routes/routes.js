@@ -3,7 +3,7 @@ const multer = require("multer");
 const axios = require('axios');
 const { getUsers, Register, Login, editUser, deleteUser, getData } = require("../controller/Users");
 const { addPost, getAllPost, deletePost, editPost } = require("../controller/Community");
-const { uploadImage, getListImages, download } = require("../controller/Image");
+const { prediction } = require("../controller/Predict");
 const { verifyToken } = require("../middleware/verifyToken");
 
 const router = express.Router();
@@ -31,11 +31,6 @@ router.delete('/deletepost', deletePost);
 
 // Route untuk places api
 router.post('/getExplore', getData);
-
-// Route untuk upload image
-router.post("/upload", uploadImage);
-router.get("/files", getListImages);
-router.get("/files/:name", download);
 
 // Route untuk model
 router.post('/predict', prediction);

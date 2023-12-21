@@ -11,7 +11,7 @@ const Community = db.define('communities', {
         type: DataTypes.STRING
     },
     location: {
-        type: DataTypes.FLOAT
+        type: DataTypes.STRING
     }
 }, {
     timestamps: true
