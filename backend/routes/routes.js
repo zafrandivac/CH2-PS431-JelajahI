@@ -31,8 +31,5 @@ router.delete('/deletepost', deletePost);
 // Route untuk places api
 router.post('/getExplore', getData);
 
-// Route untuk model
-router.post('/predict', prediction);
-
 
 module.exports = { router };
