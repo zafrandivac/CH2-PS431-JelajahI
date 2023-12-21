@@ -3,7 +3,6 @@ const multer = require("multer");
 const axios = require('axios');
 const { getUsers, Register, Login, editUser, deleteUser, getData } = require("../controller/Users");
 const { addPost, getAllPost, deletePost, editPost } = require("../controller/Community");
-const { prediction } = require("../controller/Predict");
 const { verifyToken } = require("../middleware/verifyToken");
 
 const router = express.Router();
