@@ -35,5 +35,8 @@ JelajahI utilizes an API designed with **Node.js**, **Express**, and a **MySQL**
 | Mobile Development | [Github](https://github.com/reynard26/Jelajahi-MD) |
 | Cloud Computing  | [Github](https://github.com/zafrandivac/CH2-PS431-JelajahI)  |
 
+# Jelajahi API Documentation
+(https://www.notion.so/JelajahI-API-a77306b3d10b43f79755d4e805eb5c6c)
+
 # Copyright
 ***© Bangkit Team CH2-PS431***
