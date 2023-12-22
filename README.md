@@ -20,7 +20,7 @@ JelajahI utilizes an API designed with **Node.js**, **Express**, and a **MySQL**
 
 |              Name              | Bangkit-ID |   Learning Path    |                                                       Contact Link                                                       |
 | :----------------------------: | :--------: | :----------------: | :----------------------------------------------------------------------------------------------------------------------: |
-| Adwa Sofia | M002BSX0695 |  Machine Learning  |            [LinkedIn](https://www.linkedin.com/in/adwasofia/)  and [GitHub]()         |
+| Adwa Sofia | M002BSX0695 |  Machine Learning  |            [LinkedIn](https://www.linkedin.com/in/adwasofia/)  and [GitHub](https://github.com/adwasofia)         |
 |   Amelia Rahmanita     | M271BSX0298 |  Machine Learning  |                [LinkedIn](https://www.linkedin.com/in/amelia-rahmanita)    and [GitHub](https://github.com/ameliarahmanita)            |
 |     Hanifah Ghina Nabila            | M002BSX0064| Machine Learning |              [LinkedIn](https://www.linkedin.com/in/hanifah-ghina-nabila/)       and [GitHub](https://github.com/hanifahgn)        |
 |     Reynardthan Handoko     | A271BSY2166 | Mobile Development |    [LinkedIn](https://www.linkedin.com/in/reynardthan/)  and [GitHub](https://github.com/reynard26)    |
