@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/users', getUsers);
 router.post('/register', Register);
 router.post('/login', upload.none(), Login);
-router.post('/edit', upload.none(), editUser);
+router.put('/edit', upload.none(), editUser);
 router.delete('/delete', deleteUser);
 
 // Route untuk community

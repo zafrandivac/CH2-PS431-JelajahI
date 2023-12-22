@@ -19,7 +19,7 @@ const addPost = async (req, res) => {
 const getAllPost = async (req, res) => {
     try {
         const community = await Community.findAll({
-            attributes: ["placeName", "location", "description"]
+            attributes: ["id", "placeName", "location", "description"]
         });
         res.json(community);
     } catch (error) {
