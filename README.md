@@ -9,10 +9,11 @@ Welcome to **JelajahI**, the ultimate cultural travel companion designed to imme
 JelajahI utilizes an API designed with **Node.js**, **Express**, and a **MySQL** database. To ensure privacy and enhance user convenience, JelajahI incorporates the **Bcrypt** and **JWT** (JSON Web Token). Additionally, this application employs Tensorflow.js for implementing machine learning models. All applications are hosted on Google App Engine
 
 ## Mockup Preview
-![JelajahI Splash Screens](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/SplashScreen.png)
-![JelajahI Home](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/HomePage.png)
-![JelajahI Explore](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/ExplorePage.png)
-![JelajahI Community](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/CommunityPage.png)
+![JelajahI Preview 1](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/12.png)
+![JelajahI Preview 2](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/13.png)
+![JelajahI Preview 3](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/14.png)
+![JelajahI Preview 4](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/15.png)
+![JelajahI Preview 5](https://raw.githubusercontent.com/reynard26/Jelajahi-Assets/main/16.png)
 *for further details: [See JelajahI UI on Figma](https://www.figma.com/file/7gfDZmAeQ5EVfZHZPR8d2c/Jelajahi-UI?type=design&mode=design&t=iQkAzNPeyt11UHrn-0) || [See JelajahI UI Assets on GitHub](https://github.com/reynard26/Jelajahi-Assets)*
 
 # CH2-PS431 Team Members
